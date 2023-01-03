@@ -1,10 +1,9 @@
 import { AfterContentChecked, Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Category } from '../shared/category.model';
 
-//import toastr from "toastr";
 
 @Component({
   selector: 'app-category-form',
@@ -15,8 +14,8 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   currentAction: string = '';
   categoryForm!: FormGroup;
-  pageTitle: string = '';
-  serverErrorMessages: string[] = [];
+  pageTitle!: string;
+  serverErrorMessages!: string[];
   submittingForm: boolean = false;
   category?: Category = {};
 
@@ -40,6 +39,48 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked(): void {
     this.setPageTitle();
+  }
+
+  submitForm(): void {
+    this.submittingForm = true;
+
+    if (this.currentAction == 'new') {
+      this.createCategory();
+    } else {
+      this.updateCategory();
+    }
+  }
+
+  private createCategory(): void {
+    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+    console.log(category);
+    //this.categoryService.create(category)
+      //.subscribe(
+        //category => this.actionsForSuccess(category),
+        //error => this.actionsForError(error)
+      //)
+      this.actionsForSuccess(category);
+  }
+
+  private updateCategory(): void {
+    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+    console.log(category);
+    //this.categoryService.update(category)
+      //.subscribe(
+        //category => this.actionsForSuccess(category),
+        //error => this.actionsForError(error)
+      //)
+  }
+
+  private actionsForSuccess(category: Category): void {
+    // redirect/reload component page
+    this.router.navigateByUrl('categories', { skipLocationChange: true }).then(
+      () => this.router.navigate(['categories', category.id, 'edit'])
+    )
+  }
+
+  private actionsForError(error: any): void {    
+    this.submittingForm = false;
   }
   
   private setCurrentAction(): void {
