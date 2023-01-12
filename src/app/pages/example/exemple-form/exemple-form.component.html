@@ -1,0 +1,141 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a routerLink="/categories">Cateogias</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Formulário de Exemplo</li>
+    </ol> 
+  </nav>
+
+  <div class="row mb-4">
+    <div class="col-md">
+        <h1 class="h2 border-left pl-2">
+            Formulário de Exemplo
+        </h1>
+    </div>
+    <div class="col-md">
+        <a routerLink="/examples" class="btn btn-light" id="float-right">
+            Voltar
+        </a>
+    </div>
+  </div>
+
+  <form [formGroup]="categoryForm" (submit)="submitForm()">
+    <div class="card">
+        <div class="card-header">
+            Informações sobre a exemplo
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="name">Nome</label>
+                    <input type="text" class="form-control" id="name" placeholder="Nome da categoria" formControlName="name">
+                    
+                    <div class="text-danger" *ngIf="categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched ">
+                        <div *ngIf="categoryForm.get('name')?.errors?.['required']">dado obrigatorio</div>
+                        <div *ngIf="categoryForm.get('name')?.errors?.['minlength']">deve ter ao menos 2 caracteres</div>
+
+                    </div>
+                </div>
+
+                <div class="form-group col-md-8">
+                    <label for="description">Descrição</label>
+                    <input type="text" class="form-control" id="description" placeholder="Descrição" formControlName="description">
+                </div>            
+            </div>
+            <div class="row">
+                <div class="form-group col-md">
+                    <label for="date">Data</label>
+                    <p-calendar
+                    id="date"
+                    placeholder="Data"
+                    inputStyleClass="form-control"
+                    dataType="string"
+                    [showIcon]="true"
+                    dateFormat="dd/mm/yy"
+                    [showButtonBar]="true">
+          </p-calendar>
+                </div>
+                
+                <div class="form-group col-md">
+                    <label for="age">Idade</label>
+                    <p-inputNumber inputId="integeronly" [min]="0" [max]="100"
+                    placeholder="Idade">
+                    </p-inputNumber>
+                </div>
+
+                <div class="form-group col-md">
+                    <label for="phone">Telefone</label>
+                    <span class="p-input-icon-right">
+                        <i class="pi pi-phone"></i>
+                        <input mask="(00) 0000-0000 || (00) 00000-0000" placeholder="Telefone" pInputText/>
+                    </span>
+                </div>
+
+                <div class="form-group col-md-2 mt-4">
+                    <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
+                    <label for="active">Ativo</label>
+                </div>
+
+                <div class="form-group col-md-2 mt-3">
+                    <p-fileUpload mode="basic" name="demo" url="./upload.php" accept="image/*" [maxFileSize]="1000000"></p-fileUpload>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="form-group col-md-3">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-lock"></i>
+                        <p-password ></p-password>
+                    </span>
+                </div>
+                <div class="form-group col-md">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-user"></i>
+                        <input type="text" pInputText />
+                    </span>
+                </div>
+
+                <div class="form-group col-md">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-google"></i>
+                        <input type="text" [mask]="'A*'" suffix="@gmail.com" pInputText [validation]="true" (change)="OnChange($event)">
+                    </span>
+                </div>
+
+                <div class="form-group col-md">
+                    <span class="p-input-icon-left"> 
+                        <i class="pi pi-id-card"></i>
+                        <input type="text" mask="CPF_CNPJ" pInputText [validation]="true" (change)="OnChange($event)">
+                    </span>
+                </div>
+                
+            </div>
+            <div class="row mt-3">
+                <div class="form-group col-md">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-clock"></i>
+                        <input type="text" pInputText mask="Hh:m0:s0" placeholder="Horas">
+                    </span>
+                </div>
+
+                <div class="form-group col-md">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-at"></i>
+                        <input type="text" [mask]="'A*@A*.SSS'" pInputText [validation]="true" (change)="OnChange($event)">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+        <strong>Erro no servidor:</strong>
+        <ul>
+            <li *ngFor="let error of serverErrorMessages">{{error}}</li>
+        </ul>
+    </div>
+    
+    <button type="submit" class="btn btn-primary btn-lg mt-3" id="float-right"
+    [disabled]="submittingForm || categoryForm.invalid">
+    Salvar</button>
+  </form>

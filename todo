@@ -1,3 +1,30 @@
 [] Botão adicionar flutuante
 [] Abas para adicionar classe
 [] 3 pontinhos distintos de acordo com o contexto
+
+
+    Curso
+
+Shared:
+
+[X] Components: Extração de componentes que se repetem no codigo
+[X] Model: Fazer um modelo abstrato contendo o ID para fazer um service generico
+[X] Services: Fazer um Service generico para o codigo diminuir
+[X] Shared.module: Um lugar para exportar os components shared e coisas que eles usam que não estão no module core 
+
+Core:
+
+[] Components: Components que são usados no projeto todo, como por exemplo uma navbar, para limpar o app.component
+[] Core.module: Um lugar para exportar os components core e as coisas que todo o projeto usa, como por exemplo o HttpClientModule
+
+Class:
+
+[X] Criar pasta do modelo novo dentro de pages
+[X] Fazer o Form
+[X] Fazer o List
+[X] Fazer o Shared
+    [X] Fazer o Model
+    [X] Fazer o Service
+[X] Gerar o module junto com o routing module (ng g m pages/{{ClassName}} --routing)
+    [X] Importar o shared module
+[X] Fazer o loadChilden no app-routing 

@@ -1,18 +1,14 @@
-import { AfterContentChecked, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {MenuItem} from 'primeng/api';
-
-
-import { Category } from '../shared/category.model';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { Category } from '../../categories/shared/category.model';
 
 @Component({
-  selector: 'app-category-form',
-  templateUrl: './category-form.component.html',
-  styleUrls: ['./category-form.component.css']
+  selector: 'app-exemple-form',
+  templateUrl: './exemple-form.component.html',
+  styleUrls: ['./exemple-form.component.css']
 })
-export class CategoryFormComponent implements OnInit, AfterContentChecked {
+export class ExempleFormComponent {
 
   currentAction: string = '';
   categoryForm!: FormGroup;
@@ -21,12 +17,17 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   submittingForm: boolean = false;
   category?: Category = {};
 
+  imaskConfig = {
+    mask: Number,
+    scale: 2,
+    thousandsSeparator: '',
+    padFractionalZeros: true,
+    normalizeZeros: true,
+    radix: ','
+  };
+
   categories: Category[] = [
     { id: 1, name: 'Moradia', description: 'Pagamentos de contas de casa' },
-    { id: 2, name: 'Saúde', description: 'Plano de saúde e remedios' },
-    { id: 3, name: 'Lazer', description: 'Cinema, parques, praia, etc' },
-    { id: 4, name: 'Salário', description: 'Recebimento de salario' },
-    { id: 5, name: 'Freelas', description: 'Trabalhos como freelancer' },
   ];
 
   ngOnInit(): void {
@@ -119,5 +120,11 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
       this.pageTitle = 'Editando Categoria: ' + categoryName;
     }
   }
+
+  OnChange(event: any) {
+    console.log(event.target.value);
+    console.log()
+  }
+
 
 }
