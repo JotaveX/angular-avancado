@@ -1,0 +1,59 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/library']">Library</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Data</li>
+    </ol>
+  </nav>
+  
+
+  <div class="row mb-4">
+    <div class="col-md">
+        <h1 class="h2 border-left pl-2">
+            Exemplos
+        </h1>
+    </div>
+    <div class="col-md">
+        <a routerLink="new" class="btn btn-success text-right">
+            Novo Exemplo
+        </a>
+    </div>
+  </div>
+<div class="table-responsive">
+    
+</div>
+  <table class="table table-hover">
+    <thead>
+      <tr class="bg-primary text-light">
+        <th scope="col" class="text-center">Exemplos</th>
+        <th scope="col" class="text-center">Ações</th>
+        <th scope="col" class="text-center">Imagem</th>
+        <th scope="col" class="text-center">Data</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let example of examples">
+            <td>
+            <strong>{{example.name}}</strong><br>
+            <small>{{example.id}}</small>
+            </td>
+            <td class="text-center">
+            <a [routerLink]="[example.id, 'edit']" class="btn btn-sm btn-primary" *ngIf="example.active">
+                <i class="fa fa-edit"></i>
+                Editar
+            </a>
+            <a class="btn btn-sm btn-danger" (click)="deleteCategory(example.id)">
+                <i class="fa fa-trash"></i>
+                Excluir
+            </a>
+            </td>
+            <td>
+            <img [src]="example.image" alt="Imagem da categoria" class="center-image">
+            </td>
+            <td class="text-center">
+            <small>{{example.date | date: 'dd/MM/yyyy'}}</small>
+            </td>
+        </tr>
+    </tbody>
+  </table> 
+  

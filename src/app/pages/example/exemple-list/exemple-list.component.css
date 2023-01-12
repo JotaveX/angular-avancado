@@ -1,0 +1,11 @@
+.grid-center {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .center-image {
+    display: block;
+    margin: auto;
+  }
+  
